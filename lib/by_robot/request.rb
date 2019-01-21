@@ -15,6 +15,10 @@ module ByRobot
 
     def self.headers
       headers = {
+        content_type: :json, 
+        accept: :json,
+        'AcceptCharset': 'utf-8',
+        'contentType': 'utf-8',
         datetime: Time.now.utc.strftime('%a, %d %b %Y %H:%M:%S GMT'), 
         appkey: ByRobot.app_key
       }
@@ -28,10 +32,7 @@ module ByRobot
     end
 
     def self.post(action, params)
-      puts "action:#{action}"
-      puts "params:#{params}"
-      puts "headers:#{headers}"
-      JSON.parse RestClient.post("#{BASEURL}/#{action}", params, headers)
+      JSON.parse RestClient.post("#{BASEURL}/#{action}", params.to_json, headers)
     end
 
   end
